@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hila,Admin</title>
+    <script src="scripts/Chart.js/v0.2.0/Chart.js"></script>
+</head>
+<body>
+    <canvas id="mycanvas" width="600" height="600"></canvas>
+	<script>
+		var chrt = document.getElementById("mycanvas").getContext("2d");
+		
+		var data = {
+			labels: ["Jan","Feb","June"],
+			datasets: [
+				{
+					label: "My first dataset",
+					fillColor: "rgba(220,220,220,0.8)",
+					strokeColor: "rgba(220,220,220,0.8)",
+					highlightFill: "rgba(220,220,220,0.75)",
+					highlightStroke: "rgba(220,220,220,1)",
+					data: [5,6,10]
+				}
+			]
+		};
+		var myFirstChart = new Chart(chrt).Bar(data);
+	</script>
+</body>
+</html>
