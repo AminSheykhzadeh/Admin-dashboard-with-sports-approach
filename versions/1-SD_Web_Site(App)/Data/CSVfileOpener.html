@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV File Reader</title>
+    <style>
+        /* Optional: Add some basic styling to the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" id="csvFileInput" accept=".csv">
+    <br><br>
+    <div id="output"></div>
+
+    <script>
+        document.getElementById('csvFileInput').addEventListener('change', function (event) {
+            let file = event.target.files[0];
+            let reader = new FileReader();
+
+            reader.onload = function (e) {
+                let text = e.target.result;
+                displayCSV(text);
+            };
+
+            reader.readAsText(file);
+        });
+
+        function displayCSV(csvText) {
+            let rows = csvText.split('\n');
+            let table = '<table>';
+
+            for (let row of rows) {
+                let columns = row.split(',');
+                table += '<tr>';
+
+                for (let column of columns) {
+                    table += `<td>${escapeHTML(column)}</td>`;
+                }
+
+                table += '</tr>';
+            }
+
+            table += '</table>';
+            document.getElementById('output').innerHTML = table;
+        }
+
+        function escapeHTML(text) {
+            var map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+    </script>
+</br><hr><p><a href="index.html">Back </a> | <a href="../index.html"> Home </a></p></br>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV Display</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: #f0f0f0;
+            position: sticky;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+	<p><a href="index.html">Back </a> | <a href="../index.html"> Home </a></p>
+	<p>Hila CSV File Viewer V0.1.3</P>
+	<hr>
+    <div id="csv-output">Loading...</div>
+
+    <script>
+        const csvUrl = 'data.csv'; // Replace with your CSV file URL
+
+        fetch(csvUrl)
+            .then(response => response.text())
+            .then(csvText => displayCSV(csvText))
+            .catch(error => {
+                document.getElementById('csv-output').innerHTML = 'Error loading CSV file: ' + error;
+            });
+
+        function displayCSV(csvText) {
+            const rows = csvText.split('\n');
+            let html = '<table>';
+
+            // Header
+            html += '<tr>';
+            const headers = rows[0].split(',');
+            headers.forEach(header => {
+                html += `<th>${escapeHTML(header)}</th>`;
+            });
+            html += '</tr>';
+
+            // Data rows
+            for (let i = 1; i < rows.length; i++) {
+                html += '<tr>';
+                const cells = rows[i].split(',');
+                cells.forEach(cell => {
+                    html += `<td>${escapeHTML(cell)}</td>`;
+                });
+                html += '</tr>';
+            }
+
+            html += '</table>';
+            document.getElementById('csv-output').innerHTML = html;
+        }
+
+        function escapeHTML(text) {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+    </script>
+</br><hr><p><a href="index.html">Back </a> | <a href="../index.html"> Home </a></p></br>
+</body>
+</html>

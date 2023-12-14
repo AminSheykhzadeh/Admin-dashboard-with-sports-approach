@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV File Display</title>
+    <style>
+        /* Basic styling for the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+	<p><a href="index.html">Back </a> | <a href="../index.html"> Home </a></p>
+	<p>Hila CSV File Viewer V0.0.9(FinalUpdate) | Project terminated.</P>
+	<hr>
+
+    <div id="output">Loading data...</div>
+
+    <script>
+        window.onload = function() {
+            fetch('data.csv')
+            .then(response => response.text())
+            .then(text => displayCSV(text))
+            .catch(error => {
+                document.getElementById('output').innerHTML = 'Error loading the CSV file.';
+                console.error('Error loading CSV file:', error);
+            });
+        };
+
+        function displayCSV(csvText) {
+            let rows = csvText.split('\n');
+            let table = '<table>';
+
+            for (let row of rows) {
+                let columns = row.split(',');
+                table += '<tr>';
+
+                for (let column of columns) {
+                    table += `<td>${escapeHTML(column)}</td>`;
+                }
+
+                table += '</tr>';
+            }
+
+            table += '</table>';
+            document.getElementById('output').innerHTML = table;
+        }
+
+        function escapeHTML(text) {
+            var map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+    </script>
+</br><hr><p><a href="index.html">Back </a> | <a href="../index.html"> Home </a></p></br>
+</body>
+</html>

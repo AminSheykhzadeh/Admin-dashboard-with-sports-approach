@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Local CSV File</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: #f0f0f0;
+            position: sticky;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" id="csvFileInput" accept=".csv" />
+    <br/><br/>
+    <div id="csvOutput">Select a CSV file to display its contents here.</div>
+
+    <script>
+        document.getElementById('csvFileInput').addEventListener('change', function(e) {
+            var file = e.target.files[0];
+            if (!file) {
+                return;
+            }
+
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var contents = e.target.result;
+                displayCSV(contents);
+            };
+            reader.readAsText(file);
+        });
+
+        function displayCSV(csvText) {
+            var rows = csvText.split('\n');
+            var html = '<table>';
+
+            // Header
+            html += '<tr>';
+            var headers = rows[0].split(',');
+            headers.forEach(function(header) {
+                html += '<th>' + escapeHTML(header) + '</th>';
+            });
+            html += '</tr>';
+
+            // Data rows
+            for (var i = 1; i < rows.length; i++) {
+                html += '<tr>';
+                var cells = rows[i].split(',');
+                cells.forEach(function(cell) {
+                    html += '<td>' + escapeHTML(cell) + '</td>';
+                });
+                html += '</tr>';
+            }
+
+            html += '</table>';
+            document.getElementById('csvOutput').innerHTML = html;
+        }
+
+        function escapeHTML(text) {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+    </script>
+</br><hr><p><a href="index.html">Back </a> | <a href="../index.html"> Home </a></p></br>
+</body>
+</html>

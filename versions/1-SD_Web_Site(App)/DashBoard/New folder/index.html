@@ -1,0 +1,91 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sensor Dashboard</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+    <p><a href="../index.html"> Home </a></p><hr></br></br>
+    <h3>Timestamp</h3>
+    <canvas id="timestampChart" width="600" height="100"></canvas>
+    
+    <h3>Location</h3>
+    <canvas id="locationChart" width="600" height="100"></canvas>
+
+    <h3>Name</h3>
+    <canvas id="nameChart" width="600" height="100"></canvas>
+
+    <h3>Temperature</h3>
+    <canvas id="temperatureChart" width="600" height="100"></canvas>
+
+    <script>
+            var data = {
+                labels: [],
+                datasets: [{
+                    label: 'Sensor 1',
+                    data: [],
+                    borderColor: 'red',
+                    fill: false
+                },
+                {
+                    label: 'Sensor 2',
+                    data: [],
+                    borderColor: 'blue',
+                    fill: false
+                }]
+            };
+
+            var ctx = document.getElementById('sensorChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: data
+            });
+
+        var ws = new WebSocket("ws://YOUR_NODEMCU_IP:81/");
+        
+        ws.onmessage = function(event) {
+            var dataPacket = JSON.parse(event.data);
+
+            // Update charts based on received data
+            updateChart(timestampChart, dataPacket.timestamp);
+            updateChart(locationChart, dataPacket.location);
+            updateChart(nameChart, dataPacket.name);
+            updateChart(temperatureChart, dataPacket.temperature);
+        };
+
+        function updateChart(chart, data) {
+            if(chart.data.labels.length > 10) { // Limit data points for demonstration
+                chart.data.labels.shift();
+                chart.data.datasets[0].data.shift();
+            }
+            
+            chart.data.labels.push(new Date().toLocaleTimeString());
+            chart.data.datasets[0].data.push(data);
+            
+            chart.update();
+        }
+
+        var timestampChart = setupChart('timestampChart');
+        var locationChart = setupChart('locationChart');
+        var nameChart = setupChart('nameChart');
+        var temperatureChart = setupChart('temperatureChart');
+
+        function setupChart(elementId) {
+            var ctx = document.getElementById(elementId).getContext('2d');
+            return new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        borderColor: 'blue',
+                        fill: false
+                    }]
+                }
+            });
+        }
+    </script>
+    </body>
+    </html>

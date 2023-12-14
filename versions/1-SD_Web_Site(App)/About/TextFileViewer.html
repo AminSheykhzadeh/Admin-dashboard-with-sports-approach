@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text File Viewer</title>
+    <style>
+        .text-container {
+            white-space: pre-wrap; /* Preserves whitespace and line breaks */
+            font-family: 'Courier New', monospace; /* Monospaced font for text file appearance */
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #f4f4f4;
+            overflow: auto; /* Adds a scrollbar if necessary */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="textContainer" class="text-container">
+        <!-- Text content will be loaded here -->
+    </div>
+
+    <script>
+        // JavaScript to load and display the text file
+        fetch('ChangeLog.txt')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('textContainer').innerText = text;
+            })
+            .catch(err => {
+                console.error('Error fetching the text file:', err);
+                document.getElementById('textContainer').innerText = 'Failed to load the text file.';
+            });
+    </script>
+
+</body>
+</html>

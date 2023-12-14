@@ -1,0 +1,23 @@
+Current Version: 0.3.1
+
+------To Do--------------------------------------------------------------------------!
+add login cridentials
+add wifi Setting ability
+Fix ws Ip issue
+
+
+------Doing--------------------------------------------------------------------------!
+
+add option to direct directories to index file atomatically
+add chart to dashboard
+Serial DMA or An Appoach.
+
+------Done.--------------------------------------------------------------------------!
+
+Plot + SD + DashBoard + Directories + View Data (V0.3.1)
+add chart
+add Option to Store log in SD Card
+add Option to Open Index file
+add handle / to home index
+add handle /export to export file to direct download
+add 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sensor Dashboard</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <canvas id="sensorChart" width="600" height="300"></canvas>
+
+        <script>
+            var data = {
+                labels: [],
+                datasets: [{
+                    label: 'Sensor 1',
+                    data: [],
+                    borderColor: 'red',
+                    fill: false
+                },
+                {
+                    label: 'Sensor 2',
+                    data: [],
+                    borderColor: 'blue',
+                    fill: false
+                }]
+            };
+
+            var ctx = document.getElementById('sensorChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: data
+            });
+
+            var ws = new WebSocket("ws://192.168.43.43:81/");
+            
+            ws.onmessage = function(event) {
+                var sensorsData = JSON.parse(event.data);
+                
+                if(data.labels.length > 10) { // Limit data points for demonstration
+                    data.labels.shift();
+                    data.datasets[0].data.shift();
+                    data.datasets[1].data.shift();
+                }
+                
+                data.labels.push(new Date().toLocaleTimeString());
+                data.datasets[0].data.push(sensorsData.sensor1);
+                data.datasets[1].data.push(sensorsData.sensor2);
+                
+                chart.update();
+            };
+        </script>
+    </body>
+    </html>
