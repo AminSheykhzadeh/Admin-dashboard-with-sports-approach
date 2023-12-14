@@ -1,0 +1,11 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #FAFAFA;
+}
+
+/* Add your custom styles here */
+.page-content {
+  padding: 20px;
+}

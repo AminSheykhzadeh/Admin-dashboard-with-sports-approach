@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#317EFB"/>
+  <title>Hila | Dashboard</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="https://code.highcharts.com/map.js"></script>
+  <script src="https://code.highcharts.com/modules/data.js"></script>
+</head>
+<body>
+  <div id="app">
+    <nav class="menu">
+      <div class="menu-item" onclick="navigate('home')">Home</div>
+      <div class="menu-item" onclick="navigate('about')">About</div>
+      <div class="menu-item" onclick="navigate('settings')">Settings</div>
+    </nav>
+    <div id="content">
+      <!-- Content will be loaded here -->
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

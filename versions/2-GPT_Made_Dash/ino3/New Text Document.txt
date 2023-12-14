@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hila | Dashboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <!-- Add additional Highcharts modules if necessary -->
+  <style>
+    .mdl-layout__header-row {
+      justify-content: space-between;
+    }
+    .mdl-layout__drawer-button {
+      color: white;
+    }
+    .content {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">Hila | Dashboard</span>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">Menu</span>
+      <nav class="mdl-navigation" id="navigationMenu">
+        <!-- Menu will be inserted here by JavaScript -->
+      </nav>
+    </div>
+    <main class="mdl-layout__content">
+      <div class="content">
+        <div id="chart-container" style="width:100%; height:400px;"></div>
+        <table border="1" id="sensorTable" style="width:100%;"><tr><th>Time</th><th>Sensor 1</th><th>Sensor 2</th></tr></table>
+        <!-- Include additional content here -->
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Define menu items
+    const menuItems = [
+      { name: 'Settings', action: 'openSettings' },
+      { name: 'About', action: 'openAbout' },
+      { name: 'Profile', action: 'openProfile' },
+      { name: 'Logout', action: 'logoutUser' },
+      { name: 'Export', action: 'exportData' }
+    ];
+
+    // Function to create menu
+    function createMenu() {
+      const menu = menuItems.map(item => 
+        `<a class="mdl-navigation__link" href="#" onclick="handleMenuClick('${item.action}')">${item.name}</a>`
+      ).join('');
+      document.getElementById('navigationMenu').innerHTML = menu;
+    }
+
+    // Handle menu click
+    function handleMenuClick(action) {
+      if (window[action]) {
+        window[action]();
+      }
+    }
+
+    // Define menu action functions
+    function openSettings() {
+      // Open settings dialog or page
+    }
+
+    function openAbout() {
+      // Open about dialog or page
+    }
+
+    function openProfile() {
+      // Open profile dialog or page
+    }
+
+    function logoutUser() {
+      // Handle user logout
+    }
+
+    function exportData() {
+      // Implement data export functionality
+    }
+
+    // Call createMenu on page load
+    window.onload = createMenu;
+
+    // Setup interval for updating data
+    setInterval(() => {
+      // Fetch new data and update the chart and table here
+    }, 1000); // Update every second
+
+    // Highcharts and data-fetching script goes here
+  </script>
+
+</body>
+</html>

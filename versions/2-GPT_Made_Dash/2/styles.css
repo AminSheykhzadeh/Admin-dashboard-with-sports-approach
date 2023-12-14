@@ -1,0 +1,17 @@
+/* Basic styles for layout */
+#dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-container {
+  width: 48%;
+  margin: 1%;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    width: 100%;
+  }
+}
